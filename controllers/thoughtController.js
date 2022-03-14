@@ -35,10 +35,23 @@ module.exports = {
         const deletedThought = await Thought.findOneAndUpdate({_id: req.params.thoughtId});
         res.status(200).json(deletedThought);
     },
-    //Post new reaction
+    //New reaction route
     createReaction(req, res) {
+        const newReaction = await Reaction.create(req.body);
+        const addNewReaction = await Thought.findOneAndUpdate(
+            {id: req.params.thoughtId},
+            { $addToSet: {reactions: newReaction}},
+            {new: true} 
+        );
+        res.status(200).json(this.addNewReaction);
     },
     //Delete reaction by id
-    removeReaction(req, res){
+    removeReaction(req, res) {
+        const deleteReaction = await Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            {$pull: {reactions: {_id: req.body._id}}},
+            {new: true}
+        );
+        res.status(200).json(this.deleteReaction);
     },
-}
+};
