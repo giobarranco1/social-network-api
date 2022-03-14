@@ -10,23 +10,28 @@ const reactionSchema = new Schema(
         },
         reactionBody: {
             //String
+            type: String,
             //Required
+            required: true,
             //280 char max
+            maxlength: 280
         },
         username: {
             //String
+            type: String,
             //Required
+            required: true
         },
-        //Date
-        //Set deafult to the current time stamp
-        //Use getter method to format the timestamp on query
         createdAt: {
             type: Date,
+            //Set deafult to the current time stamp
             default: Date.now,
+            //Use getter method to format the timestamp on query
         },
     },
     {
      toJSON: {
+         virtuals: true,
          getters: true,
      },
      id: false,
