@@ -1,5 +1,4 @@
 const {Schema, model} = require('mongoose');
-const dateFormat = require("../utils/dateFormat");
 const reactionSchema = require("./Reaction");
 
 //Schema to create a thought model
@@ -36,8 +35,17 @@ const thoughtSchema = new Schema(
             virtuals: true,
             getters: true,
         },
+        id: false,
     }
 );
+
+thoughtSchema.virtual("reactionCount").get(function () {
+    if (this.reactions) {
+        return this.reactions.length;
+    } else {
+        return 0;
+    }
+});
 
 const Thought = model('thought', thoughtSchema);
 
