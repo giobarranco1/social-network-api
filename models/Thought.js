@@ -17,9 +17,7 @@ const thoughtSchema = new Schema(
             //Date
             type: Date,
             //Set default value to the current timestamp
-            default: Date.now,
-            //Use a getter method to format the timestamp on query
-            get: (timestamp) => dateFormat(timestamp),
+            default: Date.now
         },
         username: {
             //String
@@ -49,4 +47,4 @@ thoughtSchema.virtual("reactionCount").get(function () {
 
 const Thought = model('thought', thoughtSchema);
 
-model.exports = Thought;
+module.exports = Thought;
